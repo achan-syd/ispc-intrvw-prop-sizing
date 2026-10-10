@@ -5,10 +5,8 @@ from dataclasses import dataclass
 from typing_extensions import Self
 
 from src.propulsion_module.models.components.engine import Engine
-from src.propulsion_module.models.components.tank import (
-    PressurantTank,
-    PropellantTank,
-)
+from src.propulsion_module.models.components.feed_system import PressurantSystem
+from src.propulsion_module.models.components.tank import PropellantTank
 
 
 @dataclass(frozen=True)
@@ -17,13 +15,13 @@ class PressureFedSystem:
 
     Attributes:
         propellant_tanks: Propellant tanks.
-        pressurant_tanks: Pressurant tanks.
+        feed_systems: Pressurant systems.
         engines: Engines.
 
     """
 
     propellant_tanks: list[PropellantTank]
-    pressurant_tanks: list[PressurantTank]
+    feed_systems: list[PressurantSystem]
     engines: list[Engine]
 
     @classmethod
@@ -40,6 +38,6 @@ class PressureFedSystem:
         module = config["propulsion_module"]
         return cls(
             propellant_tanks=[PropellantTank.from_config(module["tank"])],
-            pressurant_tanks=[PressurantTank.from_config(module["pressurant"])],
+            feed_systems=[PressurantSystem.from_config(module["pressurant"])],
             engines=[Engine.from_config(module["engine"])],
         )

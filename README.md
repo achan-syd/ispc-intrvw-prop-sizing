@@ -30,7 +30,7 @@ For each architecture, compute total required propellant mass, and system margin
 
 ### Requirements:
 Ensure the following are installed:
-- `python 3.9`
+- `python 3.10`
 - `uv`
 
 ### Quick Start

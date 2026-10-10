@@ -168,28 +168,3 @@ class PropellantTank(Tank):
             material=Material.from_database(config["material"]),
             propellant=Propellant.from_database(config["propellant"]),
         )
-
-
-@dataclass(frozen=True)
-class PressurantTank(Tank):
-    """Tank holding pressurant gas.
-
-    Attributes:
-        mass_factor: Pressurant mass per propellant mass per Pa [1/Pa].
-
-    """
-
-    mass_factor: float | None = None
-
-    @classmethod
-    def from_config(cls, config: dict) -> Self:
-        """Build an unsized pressurant tank from its config section.
-
-        Args:
-            config: Pressurant section with mass_factor.
-
-        Returns:
-            The tank.
-
-        """
-        return cls(mass_factor=config["mass_factor"])

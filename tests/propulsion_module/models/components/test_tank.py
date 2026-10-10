@@ -4,7 +4,6 @@ import pytest
 
 from src.constants.factors import DEFAULT_PRESSURE_VESSEL_FOS
 from src.propulsion_module.models.components.tank import (
-    PressurantTank,
     PropellantTank,
     Tank,
 )
@@ -46,9 +45,3 @@ def test_propellant_tank_from_config() -> None:
     assert isinstance(tank, PropellantTank)
     assert tank.propellant.name == "Hydrazine"
     assert tank.max_pressure == 1e6
-
-
-def test_pressurant_tank_from_config() -> None:
-    """Pressurant tank loads its mass factor."""
-    tank = PressurantTank.from_config({"mass_factor": 2e-8})
-    assert tank.mass_factor == 2e-8

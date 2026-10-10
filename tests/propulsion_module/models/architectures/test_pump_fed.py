@@ -15,4 +15,4 @@ def test_from_config() -> None:
     assert tank.max_pressure == pytest.approx(1e6)
     assert system.engines[0].isp == 330
     assert system.engines[0].inlet_pressure == pytest.approx(4e6)
-    assert system.pumps[0].mass_factor == pytest.approx(0.008)
+    assert system.feed_systems[0].mass_factor == pytest.approx(0.008)

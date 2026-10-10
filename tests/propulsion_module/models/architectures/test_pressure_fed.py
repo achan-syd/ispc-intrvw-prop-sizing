@@ -13,6 +13,6 @@ def test_from_config() -> None:
     assert tank.propellant.name == "Hydrazine"
     assert tank.material.name == "Aluminium"
     assert tank.max_pressure == pytest.approx(2.5e6)
-    assert system.pressurant_tanks[0].mass_factor == pytest.approx(2e-8)
+    assert system.feed_systems[0].mass_factor == pytest.approx(2e-8)
     assert system.engines[0].isp == 310
     assert system.engines[0].inlet_pressure == pytest.approx(2e6)

@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from typing_extensions import Self
 
 from src.propulsion_module.models.components.engine import Engine
-from src.propulsion_module.models.components.pump import Pump
+from src.propulsion_module.models.components.feed_system import PumpSystem
 from src.propulsion_module.models.components.tank import (
     PropellantTank,
 )
@@ -18,13 +18,13 @@ class PumpFedSystem:
     Attributes:
         propellant_tanks: Propellant tanks.
         engines: Engines.
-        pumps: Propellant pumps.
+        feed_systems: Pump systems.
 
     """
 
     propellant_tanks: list[PropellantTank]
     engines: list[Engine]
-    pumps: list[Pump]
+    feed_systems: list[PumpSystem]
 
     @classmethod
     def from_config(cls, config: dict) -> Self:
@@ -41,5 +41,5 @@ class PumpFedSystem:
         return cls(
             propellant_tanks=[PropellantTank.from_config(module["tank"])],
             engines=[Engine.from_config(module["engine"])],
-            pumps=[Pump.from_config(module["pump"])],
+            feed_systems=[PumpSystem.from_config(module["pump"])],
         )
