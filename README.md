@@ -24,3 +24,30 @@ Assume the following fixed top-level constraints:
     - Isp: 330 s
 
 For each architecture, compute total required propellant mass, and system margin against requirement. Explore the sensitivity with respect to a parameter that you select (e.g. Isp, but since we are giving you this example, please use a different parameter),
+
+
+## Setting up
+
+### Requirements:
+Ensure the following are installed:
+- `python 3.9`
+- `uv`
+
+### Quick Start
+
+## Directory Structure
+
+```text
+ispc-intrvw-prop-sizing
+├── docs/
+├── src/
+│   ├── configs/                # study configurations
+│   ├── database/               # database: materials, propellants etc ...
+│   ├── propulsion_module/      # propulsion module
+│   │   ├── models/             # data calasses
+│   │   └── solver/             # data calasses
+│   ├── utils/                  # utility modules
+│   └── main.py                 
+└── tests/
+    └── unit/
+```
