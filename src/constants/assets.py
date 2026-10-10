@@ -7,3 +7,5 @@ SRC = Path(__file__).parents[1]
 MATERIAL_DATABASE = SRC / "database" / "material.csv"
 PROPELLANT_DATABASE = SRC / "database" / "propellant.csv"
 STUDY_CONFIG = SRC / "configs" / "study.json"
+PRESSURE_FED_CONFIG = SRC / "configs" / "pressure_fed.json"
+PUMP_FED_CONFIG = SRC / "configs" / "pump_fed.json"

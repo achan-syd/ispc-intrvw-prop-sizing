@@ -3,7 +3,11 @@ import math
 import pytest
 
 from src.constants.factors import DEFAULT_PRESSURE_VESSEL_FOS
-from src.propulsion_module.models.components.tank import PropellantTank, Tank
+from src.propulsion_module.models.components.tank import (
+    PressurantTank,
+    PropellantTank,
+    Tank,
+)
 from src.propulsion_module.models.materials.material import Material
 
 
@@ -33,3 +37,18 @@ def test_cylindrical_tank(material: Material) -> None:
         math.pi * 0.5**2 * 1.0 + 4 / 3 * math.pi * 0.5**3,
     )
     assert tank.mass > 0
+
+
+def test_propellant_tank_from_config() -> None:
+    """Propellant tank also loads its propellant and keeps its subclass."""
+    config = {"propellant": "Hydrazine", "material": "Aluminium", "pressure": 1e6}
+    tank = PropellantTank.from_config(config)
+    assert isinstance(tank, PropellantTank)
+    assert tank.propellant.name == "Hydrazine"
+    assert tank.max_pressure == 1e6
+
+
+def test_pressurant_tank_from_config() -> None:
+    """Pressurant tank loads its mass factor."""
+    tank = PressurantTank.from_config({"mass_factor": 2e-8})
+    assert tank.mass_factor == 2e-8

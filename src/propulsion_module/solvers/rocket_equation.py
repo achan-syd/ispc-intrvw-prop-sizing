@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import math
 
-from src.constants.universal import STANDARD_GRAVITY
+from src.constants.universal import EARTH_GRAVITY
 
 
 def rocket_equation(
@@ -34,12 +34,12 @@ def rocket_equation(
 
     if delta_v is None:
         # Solve for the change in velocity [m/s]
-        return isp * STANDARD_GRAVITY * math.log(initial_mass / final_mass)
+        return isp * EARTH_GRAVITY * math.log(initial_mass / final_mass)
     if isp is None:
         # Solve for the specific impulse [s]
-        return delta_v / (STANDARD_GRAVITY * math.log(initial_mass / final_mass))
+        return delta_v / (EARTH_GRAVITY * math.log(initial_mass / final_mass))
     if initial_mass is None:
         # Solve for the mass before the burn [kg]
-        return final_mass * math.exp(delta_v / (isp * STANDARD_GRAVITY))
+        return final_mass * math.exp(delta_v / (isp * EARTH_GRAVITY))
     # Solve for the mass after the burn [kg]
-    return initial_mass * math.exp(-delta_v / (isp * STANDARD_GRAVITY))
+    return initial_mass * math.exp(-delta_v / (isp * EARTH_GRAVITY))
