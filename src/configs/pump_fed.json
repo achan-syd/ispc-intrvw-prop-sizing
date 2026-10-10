@@ -1,0 +1,17 @@
+{
+    "propulsion_module": {
+        "architecture": "pump_fed",
+        "tank": {
+            "propellant": "Hydrazine",
+            "material": "Aluminium",
+            "pressure": [10, "bar"]
+        },
+        "engine": {
+            "isp": 330,
+            "inlet_pressure": [40, "bar"]
+        },
+        "pump": {
+            "mass_factor": 0.008
+        }
+    }
+}

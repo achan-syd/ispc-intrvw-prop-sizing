@@ -30,7 +30,7 @@ For each architecture, compute total required propellant mass, and system margin
 
 ### Requirements:
 Ensure the following are installed:
-- `python 3.9`
+- `python 3.10`
 - `uv`
 
 ### Quick Start
@@ -42,6 +42,7 @@ ispc-intrvw-prop-sizing
 ├── docs/
 ├── src/
 │   ├── configs/                # study configurations
+│   ├── constants/              # default factors, asset paths, universal constants
 │   ├── database/               # database: materials, propellants etc ...
 │   ├── propulsion_module/      # propulsion module
 │   │   ├── models/             # data calasses

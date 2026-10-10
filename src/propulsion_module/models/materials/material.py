@@ -3,7 +3,7 @@
 import csv
 from dataclasses import dataclass
 
-from src.propulsion_module.constants.assets import MATERIAL_DATABASE
+from src.constants.assets import MATERIAL_DATABASE
 
 
 @dataclass(frozen=True)

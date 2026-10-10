@@ -1,22 +1,27 @@
 """Tank Component."""
 
+from __future__ import annotations
+
 import math
 from dataclasses import dataclass
 
 from typing_extensions import Self
 
-from src.propulsion_module.constants.factors import DEFAULT_PRESSURE_VESSEL_FOS
+from src.constants.factors import DEFAULT_PRESSURE_VESSEL_FOS
 from src.propulsion_module.models.materials.material import Material
+from src.propulsion_module.models.propellants.propellant import Propellant
+from src.utils.units import to_si_quantity
 
 
 @dataclass(frozen=True)
 class Tank:
-    """Thin-walled pressure vessel.
+    """Thin-walled pressure vessel, None until sized.
 
     Attributes:
         max_pressure: Maximum pressure [Pa].
-        fos: Factor of safety [-].
         material: Wall material.
+        fos: Factor of safety [-].
+        ullage: Fraction of the internal volume left unfilled [-].
         radius: Inner radius [m].
         length: Length of the cylindrical section, 0 for a sphere [m].
         thickness: Wall thickness [m].
@@ -25,14 +30,15 @@ class Tank:
 
     """
 
-    max_pressure: float
-    fos: float
-    material: Material
-    radius: float
-    length: float
-    thickness: float
-    volume: float
-    mass: float
+    max_pressure: float | None = None
+    material: Material | None = None
+    fos: float = DEFAULT_PRESSURE_VESSEL_FOS
+    ullage: float = 0.0
+    radius: float | None = None
+    length: float | None = None
+    thickness: float | None = None
+    volume: float | None = None
+    mass: float | None = None
 
     @classmethod
     def spherical(
@@ -40,7 +46,9 @@ class Tank:
         radius: float,
         max_pressure: float,
         material: Material,
+        *,
         fos: float = DEFAULT_PRESSURE_VESSEL_FOS,
+        ullage: float = 0.0,
     ) -> Self:
         """Size a spherical tank.
 
@@ -49,6 +57,7 @@ class Tank:
             max_pressure: Maximum pressure [Pa].
             material: Wall material.
             fos: Factor of safety [-].
+            ullage: Fraction of the internal volume left unfilled [-].
 
         Returns:
             The sized tank.
@@ -74,6 +83,7 @@ class Tank:
         return cls(
             max_pressure=p_max,
             fos=fos,
+            ullage=ullage,
             material=material,
             radius=r_in,
             length=0.0,
@@ -89,7 +99,9 @@ class Tank:
         length: float,
         max_pressure: float,
         material: Material,
+        *,
         fos: float = DEFAULT_PRESSURE_VESSEL_FOS,
+        ullage: float = 0.0,
     ) -> Self:
         """Size a cylindrical tank with hemispherical end caps.
 
@@ -99,6 +111,7 @@ class Tank:
             max_pressure: Maximum pressure [Pa].
             material: Wall material.
             fos: Factor of safety [-].
+            ullage: Fraction of the internal volume left unfilled [-].
 
         Returns:
             The sized tank.
@@ -128,6 +141,7 @@ class Tank:
         return cls(
             max_pressure=p_max,
             fos=fos,
+            ullage=ullage,
             material=material,
             radius=r_in,
             length=l_cyl,
@@ -139,9 +153,28 @@ class Tank:
 
 @dataclass(frozen=True)
 class PropellantTank(Tank):
-    """Tank holding propellant."""
+    """Tank holding propellant.
 
+    Attributes:
+        propellant: Propellant held.
 
-@dataclass(frozen=True)
-class PressurantTank(Tank):
-    """Tank holding pressurant gas."""
+    """
+
+    propellant: Propellant | None = None
+
+    @classmethod
+    def from_config(cls, config: dict) -> Self:
+        """Build an unsized propellant tank from its config section.
+
+        Args:
+            config: Tank section with propellant, pressure and material.
+
+        Returns:
+            The tank.
+
+        """
+        return cls(
+            max_pressure=to_si_quantity(config["pressure"]),
+            material=Material.from_database(config["material"]),
+            propellant=Propellant.from_database(config["propellant"]),
+        )

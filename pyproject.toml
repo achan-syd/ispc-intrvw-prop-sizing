@@ -1,7 +1,7 @@
 [project]
 name = "ispc-intrvw-prop-sizing"
 version = "0.1.0"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = [
     "numpy>=2.0.2",
     "typing-extensions>=4.16.0",
@@ -42,6 +42,9 @@ ignore = [
     "D203",
     "D213",
 ]
+
+[tool.ruff.lint.pylint]
+max-args = 6
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = [
