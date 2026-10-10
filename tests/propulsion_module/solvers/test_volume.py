@@ -1,0 +1,10 @@
+import pytest
+
+from src.propulsion_module.models.propellants.propellant import Propellant
+from src.propulsion_module.solvers.volume import volume
+
+
+def test_volume() -> None:
+    """Volume is mass over density."""
+    propellant = Propellant("Hydrazine", 1000)
+    assert volume(propellant, 500) == pytest.approx(0.5)

@@ -21,6 +21,7 @@ class Tank:
         max_pressure: Maximum pressure [Pa].
         material: Wall material.
         fos: Factor of safety [-].
+        ullage: Fraction of the internal volume left unfilled [-].
         radius: Inner radius [m].
         length: Length of the cylindrical section, 0 for a sphere [m].
         thickness: Wall thickness [m].
@@ -32,6 +33,7 @@ class Tank:
     max_pressure: float | None = None
     material: Material | None = None
     fos: float = DEFAULT_PRESSURE_VESSEL_FOS
+    ullage: float = 0.0
     radius: float | None = None
     length: float | None = None
     thickness: float | None = None
@@ -44,7 +46,9 @@ class Tank:
         radius: float,
         max_pressure: float,
         material: Material,
+        *,
         fos: float = DEFAULT_PRESSURE_VESSEL_FOS,
+        ullage: float = 0.0,
     ) -> Self:
         """Size a spherical tank.
 
@@ -53,6 +57,7 @@ class Tank:
             max_pressure: Maximum pressure [Pa].
             material: Wall material.
             fos: Factor of safety [-].
+            ullage: Fraction of the internal volume left unfilled [-].
 
         Returns:
             The sized tank.
@@ -78,6 +83,7 @@ class Tank:
         return cls(
             max_pressure=p_max,
             fos=fos,
+            ullage=ullage,
             material=material,
             radius=r_in,
             length=0.0,
@@ -93,7 +99,9 @@ class Tank:
         length: float,
         max_pressure: float,
         material: Material,
+        *,
         fos: float = DEFAULT_PRESSURE_VESSEL_FOS,
+        ullage: float = 0.0,
     ) -> Self:
         """Size a cylindrical tank with hemispherical end caps.
 
@@ -103,6 +111,7 @@ class Tank:
             max_pressure: Maximum pressure [Pa].
             material: Wall material.
             fos: Factor of safety [-].
+            ullage: Fraction of the internal volume left unfilled [-].
 
         Returns:
             The sized tank.
@@ -132,6 +141,7 @@ class Tank:
         return cls(
             max_pressure=p_max,
             fos=fos,
+            ullage=ullage,
             material=material,
             radius=r_in,
             length=l_cyl,

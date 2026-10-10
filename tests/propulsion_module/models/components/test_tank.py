@@ -20,6 +20,7 @@ def test_spherical_tank(material: Material) -> None:
     """Sphere uses the default FOS and thin-wall sizing."""
     tank = Tank.spherical(0.5, 2.5e6, material)
     assert tank.fos == DEFAULT_PRESSURE_VESSEL_FOS
+    assert tank.ullage == 0
     assert tank.thickness == pytest.approx(2.5e6 * 0.5 / (2 * 276e6 / 1.5))
     assert tank.volume == pytest.approx(4 / 3 * math.pi * 0.5**3)
     assert tank.length == 0
@@ -28,9 +29,10 @@ def test_spherical_tank(material: Material) -> None:
 
 def test_cylindrical_tank(material: Material) -> None:
     """Cylinder keeps its subclass and adds end caps."""
-    tank = PropellantTank.cylindrical(0.5, 1.0, 2.5e6, material, fos=2.0)
+    tank = PropellantTank.cylindrical(0.5, 1.0, 2.5e6, material, fos=2.0, ullage=0.05)
     assert isinstance(tank, PropellantTank)
     assert tank.fos == 2.0
+    assert tank.ullage == 0.05
     assert tank.thickness == pytest.approx(2.5e6 * 0.5 / (276e6 / 2.0))
     assert tank.volume == pytest.approx(
         math.pi * 0.5**2 * 1.0 + 4 / 3 * math.pi * 0.5**3,
