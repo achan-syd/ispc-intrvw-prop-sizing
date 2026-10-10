@@ -1,0 +1,7 @@
+Material,Density [kg/m3],Yield Strength [Pa],Ultimate Strength [Pa]
+Aluminium,2700,276000000,310000000
+Aluminium-Lithium 2195,2710,560000000,600000000
+Titanium Ti-6Al-4V,4430,880000000,950000000
+Stainless Steel 304L,8000,170000000,485000000
+Inconel 718,8190,1035000000,1240000000
+Carbon Fibre Composite,1600,600000000,600000000
