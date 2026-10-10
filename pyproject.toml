@@ -1,0 +1,30 @@
+[project]
+name = "ispc-intrvw-prop-sizing"
+version = "0.1.0"
+requires-python = ">=3.9"
+dependencies = ["numpy>=2.0.2"]
+
+[dependency-groups]
+dev = ["pre-commit", "pytest>=8.4.2", "ruff>=0.17.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[project.scripts]
+main = "src.main:main"
+
+[build-system]
+requires = ["uv_build>=0.13.0,<0.14.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "src"
+module-root = ""
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["CPY001", "D203", "D213"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "INP001"]
