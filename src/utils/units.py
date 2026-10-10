@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from types import MappingProxyType
+from typing import Final
 
-PRESSURE_UNITS = MappingProxyType(
+PRESSURE_UNITS: Final = MappingProxyType(
     {
         "Pa": 1.0,
         "kPa": 1e3,
@@ -14,7 +15,7 @@ PRESSURE_UNITS = MappingProxyType(
     },
 )
 
-MASS_UNITS = MappingProxyType(
+MASS_UNITS: Final = MappingProxyType(
     {
         "kg": 1.0,
         "g": 1e-3,
@@ -22,7 +23,7 @@ MASS_UNITS = MappingProxyType(
     },
 )
 
-LENGTH_UNITS = MappingProxyType(
+LENGTH_UNITS: Final = MappingProxyType(
     {
         "m": 1.0,
         "cm": 1e-2,
@@ -32,7 +33,7 @@ LENGTH_UNITS = MappingProxyType(
     },
 )
 
-FORCE_UNITS = MappingProxyType(
+FORCE_UNITS: Final = MappingProxyType(
     {
         "N": 1.0,
         "kN": 1e3,
@@ -40,21 +41,21 @@ FORCE_UNITS = MappingProxyType(
     },
 )
 
-VELOCITY_UNITS = MappingProxyType(
+VELOCITY_UNITS: Final = MappingProxyType(
     {
         "m/s": 1.0,
         "km/s": 1e3,
     },
 )
 
-DENSITY_UNITS = MappingProxyType(
+DENSITY_UNITS: Final = MappingProxyType(
     {
         "kg/m3": 1.0,
         "g/cm3": 1e3,
     },
 )
 
-SI_FACTORS = MappingProxyType(
+SI_FACTORS: Final = MappingProxyType(
     {
         **PRESSURE_UNITS,
         **MASS_UNITS,
