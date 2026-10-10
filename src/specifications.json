@@ -1,0 +1,8 @@
+{
+    "requirements":{
+        "delta_v": 2000,
+        "twr": 1.5,
+        "dry_mass": 600,
+        "maximum_mass": 1000
+    }
+}
