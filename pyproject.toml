@@ -2,7 +2,10 @@
 name = "ispc-intrvw-prop-sizing"
 version = "0.1.0"
 requires-python = ">=3.9"
-dependencies = ["numpy>=2.0.2"]
+dependencies = [
+    "numpy>=2.0.2",
+    "typing-extensions>=4.16.0",
+]
 
 [dependency-groups]
 dev = ["pre-commit", "pytest>=8.4.2", "ruff>=0.17.0"]
@@ -27,4 +30,4 @@ select = ["ALL"]
 ignore = ["CPY001", "D203", "D213"]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["S101", "INP001"]
+"tests/**" = ["S101", "INP001", "D100", "D103", "PLR2004"]
