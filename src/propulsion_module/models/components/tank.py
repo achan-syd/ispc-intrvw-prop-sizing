@@ -5,7 +5,7 @@ from dataclasses import dataclass
 
 from typing_extensions import Self
 
-from src.propulsion_module.constants.factors import DEFAULT_PRESSURE_VESSEL_FOS
+from src.constants.factors import DEFAULT_PRESSURE_VESSEL_FOS
 from src.propulsion_module.models.materials.material import Material
 
 

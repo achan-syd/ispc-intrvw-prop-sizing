@@ -5,7 +5,7 @@ from dataclasses import dataclass
 
 from typing_extensions import Self
 
-from src.propulsion_module.constants.assets import PROPELLANT_DATABASE
+from src.constants.assets import PROPELLANT_DATABASE
 
 
 @dataclass(frozen=True)

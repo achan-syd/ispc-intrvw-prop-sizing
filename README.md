@@ -42,6 +42,7 @@ ispc-intrvw-prop-sizing
 ├── docs/
 ├── src/
 │   ├── configs/                # study configurations
+│   ├── constants/              # default factors, asset paths, universal constants
 │   ├── database/               # database: materials, propellants etc ...
 │   ├── propulsion_module/      # propulsion module
 │   │   ├── models/             # data calasses

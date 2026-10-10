@@ -2,17 +2,19 @@ import math
 
 import pytest
 
-from src.propulsion_module.constants.factors import DEFAULT_PRESSURE_VESSEL_FOS
+from src.constants.factors import DEFAULT_PRESSURE_VESSEL_FOS
 from src.propulsion_module.models.components.tank import PropellantTank, Tank
 from src.propulsion_module.models.materials.material import Material
 
 
 @pytest.fixture
 def material() -> Material:
+    """Aluminium from the database."""
     return Material.from_database("Aluminium")
 
 
-def test_spherical(material: Material) -> None:
+def test_spherical_tank(material: Material) -> None:
+    """Sphere uses the default FOS and thin-wall sizing."""
     tank = Tank.spherical(0.5, 2.5e6, material)
     assert tank.fos == DEFAULT_PRESSURE_VESSEL_FOS
     assert tank.thickness == pytest.approx(2.5e6 * 0.5 / (2 * 276e6 / 1.5))
@@ -21,7 +23,8 @@ def test_spherical(material: Material) -> None:
     assert tank.mass > 0
 
 
-def test_cylindrical(material: Material) -> None:
+def test_cylindrical_tank(material: Material) -> None:
+    """Cylinder keeps its subclass and adds end caps."""
     tank = PropellantTank.cylindrical(0.5, 1.0, 2.5e6, material, fos=2.0)
     assert isinstance(tank, PropellantTank)
     assert tank.fos == 2.0
