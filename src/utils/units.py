@@ -82,8 +82,7 @@ def to_si(value: float, unit: str) -> float:
 
     """
     if unit not in SI_FACTORS:
-        msg = f"Unknown unit {unit!r}, expected one of {sorted(SI_FACTORS)}"
-        raise ValueError(msg)
+        raise ValueError(f"Unknown unit {unit!r}, expected one of {sorted(SI_FACTORS)}")
     return value * SI_FACTORS[unit]
 
 

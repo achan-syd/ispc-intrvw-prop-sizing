@@ -46,5 +46,4 @@ class Material:
                         yield_strength=float(row["Yield Strength [Pa]"]),
                         ultimate_strength=float(row["Ultimate Strength [Pa]"]),
                     )
-        msg = f"Material {name!r} not found in {MATERIAL_DATABASE}"
-        raise ValueError(msg)
+        raise ValueError(f"Material {name!r} not found in {MATERIAL_DATABASE}")

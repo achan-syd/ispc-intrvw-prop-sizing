@@ -29,8 +29,9 @@ def rocket_equation(
 
     """
     if [delta_v, isp, initial_mass, final_mass].count(None) != 1:
-        msg = "Provide exactly three of delta_v, isp, initial_mass, final_mass"
-        raise ValueError(msg)
+        raise ValueError(
+            "Provide exactly three of delta_v, isp, initial_mass, final_mass",
+        )
 
     if delta_v is None:
         # Solve for the change in velocity [m/s]

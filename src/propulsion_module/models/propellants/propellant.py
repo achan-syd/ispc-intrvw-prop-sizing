@@ -39,5 +39,4 @@ class Propellant:
             for row in csv.DictReader(file):
                 if row["Propellant"] == name:
                     return cls(name=name, density=float(row["Density [kg/m3]"]))
-        msg = f"Propellant {name!r} not found in {PROPELLANT_DATABASE}"
-        raise ValueError(msg)
+        raise ValueError(f"Propellant {name!r} not found in {PROPELLANT_DATABASE}")
