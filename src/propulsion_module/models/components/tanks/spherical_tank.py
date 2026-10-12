@@ -36,8 +36,7 @@ class SphericalTank(PropellantTank):
         if self.volume is None:
             return
         if self.volume <= 0:
-            msg = "Tank volume must be positive."
-            raise ValueError(msg)
+            raise ValueError("Tank volume must be positive.")
 
         # Inner radius [m] from V = 4/3 pi r^3
         self.radius = (3 * self.volume / (4 * math.pi)) ** (1 / 3)

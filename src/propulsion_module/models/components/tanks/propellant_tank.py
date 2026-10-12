@@ -53,14 +53,11 @@ class PropellantTank:
 
         """
         if self.max_pressure is None or self.material is None:
-            msg = "Tank sizing requires max_pressure and material."
-            raise ValueError(msg)
+            raise ValueError("Tank sizing requires max_pressure and material.")
         if self.max_pressure < 0 or self.fos <= 0:
-            msg = "Pressure must be non-negative and FOS positive."
-            raise ValueError(msg)
+            raise ValueError("Pressure must be non-negative and FOS positive.")
         if r_in <= 0 or l_cyl < 0:
-            msg = "Radius must be positive and length non-negative."
-            raise ValueError(msg)
+            raise ValueError("Radius must be positive and length non-negative.")
 
         # Allowable stress [Pa], yield strength over factor of safety
         sigma_allow = self.material.yield_strength / self.fos

@@ -25,8 +25,7 @@ def thrust_to_weight_ratio(
 
     """
     if [twr, thrust, mass, gravity].count(None) != 1:
-        msg = "Provide exactly three of twr, thrust, mass, gravity"
-        raise ValueError(msg)
+        raise ValueError("Provide exactly three of twr, thrust, mass, gravity")
 
     if twr is None:
         # Solve for the thrust-to-weight ratio [-]

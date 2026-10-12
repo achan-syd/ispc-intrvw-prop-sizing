@@ -42,6 +42,9 @@ ignore = [
     "CPY001",
     "D203",
     "D213",
+    "EM101",
+    "EM102",
+    "TRY003",
 ]
 
 [tool.ruff.lint.pylint]

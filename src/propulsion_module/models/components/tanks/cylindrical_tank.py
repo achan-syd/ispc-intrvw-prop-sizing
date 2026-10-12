@@ -50,11 +50,9 @@ class CylindricalTank(PropellantTank):
         if self.volume is None:
             return
         if self.volume <= 0:
-            msg = "Tank volume must be positive."
-            raise ValueError(msg)
+            raise ValueError("Tank volume must be positive.")
         if (self.radius is None) == (self.length is None):
-            msg = "Specify exactly one of radius or length."
-            raise ValueError(msg)
+            raise ValueError("Specify exactly one of radius or length.")
 
         if self.radius is not None:
             self.length = self._length_from_radius(self.radius)
@@ -69,16 +67,14 @@ class CylindricalTank(PropellantTank):
         v_cyl = self.volume - v_caps
 
         if v_cyl < 0:
-            msg = "Radius is too large for the tank volume."
-            raise ValueError(msg)
+            raise ValueError("Radius is too large for the tank volume.")
 
         return v_cyl / (math.pi * r_in**2)
 
     def _radius_from_length(self, l_cyl: float) -> float:
         """Calculate the inner radius for a cylinder length [m]."""
         if l_cyl < 0:
-            msg = "Cylinder length must be non-negative."
-            raise ValueError(msg)
+            raise ValueError("Cylinder length must be non-negative.")
 
         # Roots of 4/3 pi r^3 + pi L r^2 - V = 0
         coeffs = [4 / 3 * math.pi, math.pi * l_cyl, 0.0, -self.volume]
@@ -86,8 +82,7 @@ class CylindricalTank(PropellantTank):
         r_pos = roots[(np.abs(roots.imag) < IMAG_TOLERANCE) & (roots.real > 0)].real
 
         if len(r_pos) == 0:
-            msg = "Could not calculate a valid tank radius."
-            raise ValueError(msg)
+            raise ValueError("Could not calculate a valid tank radius.")
 
         return float(r_pos[0])
 
