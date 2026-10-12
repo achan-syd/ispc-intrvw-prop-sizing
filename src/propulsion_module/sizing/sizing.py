@@ -62,10 +62,15 @@ class SizingResult:
 
 
 def size_system(
-    specification: Specification,
-    system: PressureFedSystem | PumpFedSystem,
+    # specification: Specification,
+    # system: PressureFedSystem | PumpFedSystem,
 ) -> SizingResult:
     """Size a propulsion system against a specification.
+
+    The initial mass is the unknown. For a trial value the rocket equation gives
+    the propellant mass and the thrust-to-weight ratio gives the thrust, which
+    size the tanks and feed systems. brentq finds the initial mass that equals
+    the propellant plus the dry mass and that hardware.
 
     Args:
         specification: Requirements to size against.
@@ -74,5 +79,9 @@ def size_system(
     Returns:
         The sized system and its summary.
 
+    Raises:
+        ValueError: If the design does not close.
+
     """
-    raise NotImplementedError
+    # Propellant tank pressure [Pa] and specific impulse [s]
+    return NotImplementedError

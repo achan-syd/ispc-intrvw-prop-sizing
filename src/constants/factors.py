@@ -3,3 +3,4 @@
 from typing import Final
 
 DEFAULT_PRESSURE_VESSEL_FOS: Final = 1.5  # Factor of safety [-]
+SIZING_TOLERANCE: Final = 1e-9  # Absolute tolerance on the initial mass [kg]

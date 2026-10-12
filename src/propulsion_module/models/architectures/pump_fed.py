@@ -6,8 +6,9 @@ from typing_extensions import Self
 
 from src.propulsion_module.models.components.engine import Engine
 from src.propulsion_module.models.components.feed_system import PumpSystem
-from src.propulsion_module.models.components.tank import (
+from src.propulsion_module.models.components.tanks import (
     PropellantTank,
+    tank_from_config,
 )
 
 
@@ -39,7 +40,7 @@ class PumpFedSystem:
         """
         module = config["propulsion_module"]
         return cls(
-            propellant_tanks=[PropellantTank.from_config(module["tank"])],
+            propellant_tanks=[tank_from_config(module["tank"])],
             engines=[Engine.from_config(module["engine"])],
             feed_systems=[PumpSystem.from_config(module["pump"])],
         )
