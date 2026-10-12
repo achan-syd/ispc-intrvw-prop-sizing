@@ -1,6 +1,6 @@
 """Pressure-Fed Architecture."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 from typing_extensions import Self
 
@@ -8,6 +8,7 @@ from src.propulsion_module.models.components.engine import Engine
 from src.propulsion_module.models.components.feed_system import PressurantSystem
 from src.propulsion_module.models.components.tanks import (
     PropellantTank,
+    size_tanks,
     tank_from_config,
 )
 
@@ -43,4 +44,23 @@ class PressureFedSystem:
             propellant_tanks=[tank_from_config(module["tank"])],
             feed_systems=[PressurantSystem.from_config(module["pressurant"])],
             engines=[Engine.from_config(module["engine"])],
+        )
+
+    def size(self, prop_mass: float, _thrust: float) -> Self:
+        """Size the tanks and pressurant systems.
+
+        Args:
+            prop_mass: Propellant mass [kg].
+            _thrust: Thrust, not used by a pressure-fed system [N].
+
+        Returns:
+            The system with its tanks and pressurant systems sized.
+
+        """
+        # Propellant tank pressure [Pa]
+        pressure = self.propellant_tanks[0].max_pressure
+        return replace(
+            self,
+            propellant_tanks=size_tanks(self.propellant_tanks, prop_mass),
+            feed_systems=[feed.size(pressure, prop_mass) for feed in self.feed_systems],
         )
