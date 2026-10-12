@@ -28,6 +28,15 @@ class PumpFedSystem:
     engines: list[Engine]
     feed_systems: list[PumpSystem]
 
+    @property
+    def mass(self) -> float:
+        """Propulsion hardware mass, tanks, feed systems and engines [kg]."""
+        return (
+            sum(tank.mass for tank in self.propellant_tanks)
+            + sum(feed.mass for feed in self.feed_systems)
+            + sum(engine.mass or 0.0 for engine in self.engines)
+        )
+
     @classmethod
     def from_config(cls, config: dict) -> Self:
         """Build the system from a loaded JSON config.

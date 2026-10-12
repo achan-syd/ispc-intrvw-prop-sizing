@@ -36,10 +36,7 @@ def _size_at(
     sized = system.size(prop_mass, thrust)
 
     # Hardware mass [kg], dry mass plus the sized propulsion hardware
-    hardware_mass = specification.dry_mass
-    hardware_mass += sum(tank.mass for tank in sized.propellant_tanks)
-    hardware_mass += sum(feed.mass for feed in sized.feed_systems)
-    hardware_mass += sum(engine.mass or 0.0 for engine in sized.engines)
+    hardware_mass = specification.dry_mass + sized.mass
 
     mass = SystemMass(prop_mass, hardware_mass)
     margin = (specification.maximum_mass - mass.total_mass) / specification.maximum_mass
