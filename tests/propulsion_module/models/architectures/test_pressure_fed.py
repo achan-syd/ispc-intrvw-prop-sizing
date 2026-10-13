@@ -2,14 +2,16 @@ import json
 
 import pytest
 
-from src.constants.assets import PRESSURE_FED_CONFIG
+from src.constants.assets import SIZING_STUDY
 from src.propulsion_module.models.architectures.pressure_fed import PressureFedSystem
 
 
 @pytest.mark.unit
 def test_from_config() -> None:
     """Default config builds the components in SI."""
-    system = PressureFedSystem.from_config(json.loads(PRESSURE_FED_CONFIG.read_text()))
+    system = PressureFedSystem.from_config(
+        json.loads((SIZING_STUDY / "pressure_fed.json").read_text()),
+    )
     tank = system.propellant_tanks[0]
     assert tank.propellant.name == "Hydrazine"
     assert tank.material.name == "Aluminium"

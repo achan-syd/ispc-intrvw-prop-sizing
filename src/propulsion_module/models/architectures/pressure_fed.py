@@ -6,7 +6,7 @@ from typing_extensions import Self
 
 from src.propulsion_module.models.components.engine import Engine
 from src.propulsion_module.models.components.feed_system import PressurantSystem
-from src.propulsion_module.models.components.tanks import (
+from src.propulsion_module.models.components.tanks.factory import (
     PropellantTank,
     size_tanks,
     tank_from_config,
