@@ -2,8 +2,9 @@
 
 from dataclasses import dataclass
 
-from src.propulsion_module.models.architectures.pressure_fed import PressureFedSystem
-from src.propulsion_module.models.architectures.pump_fed import PumpFedSystem
+from src.propulsion_module.models.architectures.propulsion_system import (
+    PropulsionSystem,
+)
 
 
 @dataclass(frozen=True)
@@ -37,7 +38,7 @@ class SizingResult:
 
     """
 
-    system: PressureFedSystem | PumpFedSystem
+    system: PropulsionSystem
     mass: SystemMass
     thrust: float
     margin: float

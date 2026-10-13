@@ -4,8 +4,9 @@ from scipy.optimize import brentq
 
 from src.constants.factors import SIZING_TOLERANCE, SIZING_UPPER_BOUND_FACTOR
 from src.constants.universal import LUNAR_GRAVITY
-from src.propulsion_module.models.architectures.pressure_fed import PressureFedSystem
-from src.propulsion_module.models.architectures.pump_fed import PumpFedSystem
+from src.propulsion_module.models.architectures.propulsion_system import (
+    PropulsionSystem,
+)
 from src.propulsion_module.sizing.input import Specification
 from src.propulsion_module.sizing.output import SizingResult, SystemMass
 from src.propulsion_module.solvers.rocket_equation import rocket_equation
@@ -16,7 +17,7 @@ from src.propulsion_module.solvers.thrust_to_weight_ratio import (
 
 def _size_at(
     specification: Specification,
-    system: PressureFedSystem | PumpFedSystem,
+    system: PropulsionSystem,
     init_mass: float,
 ) -> SizingResult:
     """Size the system for a trial initial mass."""
@@ -46,7 +47,7 @@ def _size_at(
 def _residual_function(
     init_mass: float,
     specification: Specification,
-    system: PressureFedSystem | PumpFedSystem,
+    system: PropulsionSystem,
 ) -> float:
     """Compute the residual function.
 
@@ -63,7 +64,7 @@ def _residual_function(
 
 def size_system(
     specification: Specification,
-    system: PressureFedSystem | PumpFedSystem,
+    system: PropulsionSystem,
 ) -> SizingResult:
     """Size a propulsion system against a specification.
 
