@@ -6,6 +6,7 @@ from src.constants.assets import PUMP_FED_CONFIG
 from src.propulsion_module.models.architectures.pump_fed import PumpFedSystem
 
 
+@pytest.mark.unit
 def test_from_config() -> None:
     """Default config builds the components in SI."""
     system = PumpFedSystem.from_config(json.loads(PUMP_FED_CONFIG.read_text()))

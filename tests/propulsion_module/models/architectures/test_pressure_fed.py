@@ -6,6 +6,7 @@ from src.constants.assets import PRESSURE_FED_CONFIG
 from src.propulsion_module.models.architectures.pressure_fed import PressureFedSystem
 
 
+@pytest.mark.unit
 def test_from_config() -> None:
     """Default config builds the components in SI."""
     system = PressureFedSystem.from_config(json.loads(PRESSURE_FED_CONFIG.read_text()))

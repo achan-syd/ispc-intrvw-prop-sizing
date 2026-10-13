@@ -1,5 +1,7 @@
 {
     "propulsion_module": {
+        "name": "Design 1: Pressure Fed",
+        "id": "001",
         "architecture": "pressure_fed",
         "tank": {
             "propellant": "Hydrazine",

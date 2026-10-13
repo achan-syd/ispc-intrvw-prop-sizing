@@ -13,6 +13,7 @@ def material() -> Material:
     return Material.from_database("Aluminium")
 
 
+@pytest.mark.unit
 def test_spherical_tank(material: Material) -> None:
     """Sphere uses the default FOS and thin-wall sizing."""
     tank = SphericalTank(

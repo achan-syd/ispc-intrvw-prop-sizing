@@ -6,6 +6,7 @@ from src.propulsion_module.models.components.feed_system import (
 )
 
 
+@pytest.mark.unit
 def test_pump_from_config() -> None:
     """Pump section loads its mass factor, unsized."""
     pump = PumpSystem.from_config({"mass_factor": 0.008})
@@ -13,12 +14,14 @@ def test_pump_from_config() -> None:
     assert pump.mass is None
 
 
+@pytest.mark.unit
 def test_pump_size() -> None:
     """Pump mass scales linearly with thrust."""
     pump = PumpSystem(mass_factor=0.008).size(thrust=3000)
     assert pump.mass == pytest.approx(24)
 
 
+@pytest.mark.unit
 def test_pressurant_from_config() -> None:
     """Pressurant section loads its mass factor, unsized."""
     system = PressurantSystem.from_config({"mass_factor": 2e-8})
@@ -26,6 +29,7 @@ def test_pressurant_from_config() -> None:
     assert system.mass is None
 
 
+@pytest.mark.unit
 def test_pressurant_size() -> None:
     """Pressurant mass scales with pressure and propellant mass."""
     system = PressurantSystem(mass_factor=2e-8).size(

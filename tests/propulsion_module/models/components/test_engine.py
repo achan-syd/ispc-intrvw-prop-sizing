@@ -3,6 +3,7 @@ import pytest
 from src.propulsion_module.models.components.engine import Engine
 
 
+@pytest.mark.unit
 def test_from_config() -> None:
     """Engine section converts pressure to SI."""
     engine = Engine.from_config({"isp": 310, "inlet_pressure": [20, "bar"]})

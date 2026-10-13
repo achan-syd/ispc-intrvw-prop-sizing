@@ -2,6 +2,8 @@
 
 from dataclasses import dataclass
 
+from typing_extensions import Self
+
 
 @dataclass(frozen=True)
 class Specification:
@@ -19,3 +21,22 @@ class Specification:
     twr: float
     dry_mass: float
     maximum_mass: float
+
+    @classmethod
+    def from_config(cls, config: dict) -> Self:
+        """Build the specification from a loaded JSON config.
+
+        Args:
+            config: Parsed specification config, with a requirements section.
+
+        Returns:
+            The specification.
+
+        """
+        requirements = config["requirements"]
+        return cls(
+            delta_v=requirements["delta_v"],
+            twr=requirements["twr"],
+            dry_mass=requirements["dry_mass"],
+            maximum_mass=requirements["maximum_mass"],
+        )
