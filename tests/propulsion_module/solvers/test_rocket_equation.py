@@ -1,11 +1,13 @@
+from typing import Final
+
 import pytest
 
 from src.propulsion_module.solvers.rocket_equation import rocket_equation
 
-DELTA_V = 2000.0
-ISP = 310.0
-FINAL_MASS = 600.0
-INITIAL_MASS = rocket_equation(DELTA_V, ISP, final_mass=FINAL_MASS)
+DELTA_V: Final[float] = 2000.0
+ISP: Final[float] = 310.0
+FINAL_MASS: Final[float] = 600.0
+INITIAL_MASS: Final[float] = rocket_equation(DELTA_V, ISP, final_mass=FINAL_MASS)
 
 
 @pytest.mark.unit

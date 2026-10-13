@@ -11,22 +11,22 @@ from src.propulsion_module.sizing.output import SizingResult
 from src.propulsion_module.sizing.sizing import size_system
 
 # Specification
-DELTA_V: Final = 2000  # m/s
-TWR: Final = 1.5  # -
-DRY_MASS: Final = 600  # kg
-MAXIMUM_MASS: Final = 1500  # kg
+DELTA_V: Final[int] = 2000  # m/s
+TWR: Final[float] = 1.5  # -
+DRY_MASS: Final[int] = 600  # kg
+MAXIMUM_MASS: Final[int] = 1500  # kg
 
 # Pressure fed design
-PRESSURE_FED_TANK_PRESSURE: Final = [25, "bar"]
-PRESSURE_FED_ISP: Final = 310  # s
-PRESSURE_FED_INLET_PRESSURE: Final = [20, "bar"]
-PRESSURANT_MASS_FACTOR: Final = 2e-8  # 1/Pa, 0.002 /bar
+PRESSURE_FED_TANK_PRESSURE: Final[list[float | str]] = [25, "bar"]
+PRESSURE_FED_ISP: Final[int] = 310  # s
+PRESSURE_FED_INLET_PRESSURE: Final[list[float | str]] = [20, "bar"]
+PRESSURANT_MASS_FACTOR: Final[float] = 2e-8  # 1/Pa, 0.002 /bar
 
 # Pump fed design
-PUMP_FED_TANK_PRESSURE: Final = [10, "bar"]
-PUMP_FED_ISP: Final = 330  # s
-PUMP_FED_INLET_PRESSURE: Final = [40, "bar"]
-PUMP_MASS_FACTOR: Final = 0.008  # kg/N
+PUMP_FED_TANK_PRESSURE: Final[list[float | str]] = [10, "bar"]
+PUMP_FED_ISP: Final[int] = 330  # s
+PUMP_FED_INLET_PRESSURE: Final[list[float | str]] = [40, "bar"]
+PUMP_MASS_FACTOR: Final[float] = 0.008  # kg/N
 
 
 def assert_meets_specification(result: SizingResult, isp: float) -> None:

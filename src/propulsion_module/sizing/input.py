@@ -6,7 +6,7 @@ from typing import Final
 import numpy as np
 from typing_extensions import Self
 
-PARAM: Final = "PARAM"
+PARAM: Final[str] = "PARAM"
 
 
 @dataclass(frozen=True)

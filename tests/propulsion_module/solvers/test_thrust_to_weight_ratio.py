@@ -1,13 +1,15 @@
+from typing import Final
+
 import pytest
 
 from src.propulsion_module.solvers.thrust_to_weight_ratio import (
     thrust_to_weight_ratio,
 )
 
-TWR = 1.5
-THRUST = 3000.0
-MASS = 1000.0
-GRAVITY = 2.0
+TWR: Final[float] = 1.5
+THRUST: Final[float] = 3000.0
+MASS: Final[float] = 1000.0
+GRAVITY: Final[float] = 2.0
 
 
 @pytest.mark.unit
