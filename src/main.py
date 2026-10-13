@@ -2,7 +2,7 @@
 
 Usage:
     main size <design>    size src/configs/sizing_study/<design>.json
-    main compare
+    main compare <study>  size every case of src/configs/comparative_study/<study>.json
     main sweep
 """
 
@@ -10,7 +10,7 @@ import argparse
 import json
 import sys
 
-from src.constants.assets import SIZING_STUDY, SPECIFICATIONS
+from src.constants.assets import COMPARATIVE_STUDY, SIZING_STUDY, SPECIFICATIONS
 from src.propulsion_module.models.architectures.pressure_fed import PressureFedSystem
 from src.propulsion_module.models.architectures.pump_fed import PumpFedSystem
 from src.propulsion_module.sizing.input import Specification
@@ -53,9 +53,21 @@ def size(design: str) -> SizingResult:
     return result
 
 
-def compare() -> None:
+def compare(study: str) -> None:
     """Size every case of a comparative study against the specification."""
-    raise NotImplementedError
+    specification = Specification.from_config(json.loads(SPECIFICATIONS.read_text()))
+    cases = json.loads((COMPARATIVE_STUDY / f"{study}.json").read_text())["cases"]
+
+    # Solve every case
+    results = []
+    for case in cases:
+        result = size_entry(specification, case)
+        results.append((case, result))
+
+    # Print every result
+    for case, result in results:
+        sys.stdout.write(f"Case {case['case']}  ")
+        sys.stdout.write(report(case["propulsion_module"], result))
 
 
 def sweep() -> None:
@@ -67,9 +79,8 @@ def main(argv: list[str] | None = None) -> int:
     """Run the command line."""
     parser = argparse.ArgumentParser(description="Propulsion system sizing.")
     commands = parser.add_subparsers(dest="command", required=True)
-    designs = sorted(path.stem for path in SIZING_STUDY.glob("*.json"))
-    commands.add_parser("size").add_argument("design", choices=designs)
-    commands.add_parser("compare")
+    commands.add_parser("size").add_argument("design")
+    commands.add_parser("compare").add_argument("study")
     commands.add_parser("sweep")
 
     args = parser.parse_args(argv)
@@ -77,7 +88,7 @@ def main(argv: list[str] | None = None) -> int:
         case "size":
             size(args.design)
         case "compare":
-            compare()
+            compare(args.study)
         case "sweep":
             sweep()
     return 0
