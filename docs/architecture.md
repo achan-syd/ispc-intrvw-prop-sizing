@@ -174,3 +174,37 @@ classDiagram
     PropellantTank --> Material : material
     PropellantTank --> Propellant : propellant
 ```
+
+## Sizing Logic
+The unknown is the initial mass $m_0$. Guess it, size everything from it, and repeat until the sized system adds up to the guess.
+
+1. **Rocket equation**
+
+$$\Delta v = I_{sp} \, g_0 \, \ln\frac{m_0}{m_f} \quad \Rightarrow \quad m_f = m_0 \, e^{-\Delta v / (I_{sp} \, g_0)}$$
+
+$$m_{prop} = m_0 - m_f$$
+
+2. **Thrust**
+
+$$F = \text{TWR} \cdot m_0 \cdot g_{moon}$$
+
+3. **Tank** (per tank), with ullage $u$ and $k = 2$ for a sphere, $k = 1$ for a cylinder
+
+$$V = \frac{m_{prop}}{\rho_{prop} \, (1 - u)}, \qquad t = \frac{p \, r}{k \, \sigma_y / \text{FOS}}, \qquad m_{tank} = \rho_{wall} \, V_{shell}$$
+
+4. **Feed system**
+
+$$m_{pump} = k_{pump} \, F, \qquad m_{press} = k_{press} \, p \, m_{prop}$$
+
+5. **Hardware**
+
+$$m_{hw} = m_{dry} + m_{tanks} + m_{feed} + m_{engines}$$
+
+6. **Solve for $m_0$**
+
+$$f(m_0) = m_0 - (m_{prop} + m_{hw}) = 0$$
+
+Step 6 is solved with `brentq`, between the dry mass and 10 times the maximum mass.
+The result is the sized system, the mass breakdown, the thrust and the margin:
+
+$$\text{margin} = \frac{m_{max} - m_0}{m_{max}}$$
