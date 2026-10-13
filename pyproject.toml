@@ -23,6 +23,11 @@ testpaths = [
 pythonpath = [
     ".",
 ]
+addopts = "--strict-markers"
+markers = [
+    "unit: tests of a single function or class",
+    "integration: tests of the whole sizing",
+]
 
 [tool.coverage.run]
 source = [

@@ -14,8 +14,9 @@ def material() -> Material:
     return Material.from_database("Aluminium")
 
 
+@pytest.mark.unit
 def test_cylindrical_tank(material: Material) -> None:
-    """Cylinder calculates its length from the radius and adds end caps."""
+    """Cylinder length is calculated from the radius."""
     tank = CylindricalTank(
         max_pressure=2.5e6,
         material=material,
