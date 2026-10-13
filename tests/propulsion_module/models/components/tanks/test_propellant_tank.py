@@ -1,6 +1,6 @@
 import pytest
 
-from src.propulsion_module.models.components.tanks import tank_from_config
+from src.propulsion_module.models.components.tanks.factory import tank_from_config
 from src.propulsion_module.models.components.tanks.spherical_tank import SphericalTank
 
 
