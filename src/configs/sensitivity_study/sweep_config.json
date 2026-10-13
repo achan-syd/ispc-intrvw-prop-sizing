@@ -1,0 +1,51 @@
+{
+    "PARAM": [0.4, 0.1, 5],
+    "requirements": {
+        "delta_v": 2000,
+        "twr": "PARAM",
+        "dry_mass": 600,
+        "maximum_mass": 1500
+    },
+    "cases": [
+        {
+            "case": 1,
+            "propulsion_module": {
+                "name": "Design 1: Pressure Fed",
+                "id": "001",
+                "architecture": "pressure_fed",
+                "tank": {
+                    "propellant": "Hydrazine",
+                    "material": "Aluminium",
+                    "pressure": [25, "bar"]
+                },
+                "engine": {
+                    "isp": 310,
+                    "inlet_pressure": [20, "bar"]
+                },
+                "pressurant": {
+                    "mass_factor": 2e-8
+                }
+            }
+        },
+        {
+            "case": 2,
+            "propulsion_module": {
+                "name": "Design 2: Pump Fed",
+                "id": "002",
+                "architecture": "pump_fed",
+                "tank": {
+                    "propellant": "Hydrazine",
+                    "material": "Aluminium",
+                    "pressure": [10, "bar"]
+                },
+                "engine": {
+                    "isp": 330,
+                    "inlet_pressure": [40, "bar"]
+                },
+                "pump": {
+                    "mass_factor": 0.008
+                }
+            }
+        }
+    ]
+}
