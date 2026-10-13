@@ -1,20 +1,22 @@
-"""Entry point.
-
-Usage:
-    main size <design>    size src/configs/sizing_study/<design>.json
-    main compare <study>  size every case of src/configs/comparative_study/<study>.json
-    main sweep
-"""
+"""Entry point."""
 
 import argparse
 import json
 import sys
 
-from src.constants.assets import COMPARATIVE_STUDY, SIZING_STUDY, SPECIFICATIONS
+import matplotlib.pyplot as plt
+
+from src.constants.assets import (
+    COMPARATIVE_STUDY,
+    SENSITIVITY_STUDY,
+    SIZING_STUDY,
+    SPECIFICATIONS,
+)
 from src.propulsion_module.models.architectures.pressure_fed import PressureFedSystem
 from src.propulsion_module.models.architectures.pump_fed import PumpFedSystem
-from src.propulsion_module.sizing.input import Specification
+from src.propulsion_module.sizing.input import Specification, SweepDefinition
 from src.propulsion_module.sizing.output import SizingResult
+from src.propulsion_module.sizing.plot import plot_sweep
 from src.propulsion_module.sizing.sizing import size_system
 
 
@@ -70,9 +72,23 @@ def compare(study: str) -> None:
         sys.stdout.write(report(case["propulsion_module"], result))
 
 
-def sweep() -> None:
-    """Size an architecture over a range of one parameter."""
-    raise NotImplementedError
+def sweep(study: str) -> dict[int, list[SizingResult]]:
+    """Size every case of a sensitivity study over the swept values and plot it."""
+    config = json.loads((SENSITIVITY_STUDY / f"{study}.json").read_text())
+    problem = SweepDefinition.from_config(config)
+
+    # Solve every case at every value of the parameter
+    results = {case["case"]: [] for case in problem.cases}
+    for value in problem.values:
+        specification, cases = problem.at_point(value)
+        for case in cases:
+            result = size_entry(specification, case)
+            results[case["case"]].append(result)
+
+    # Plot thrust and the masses, the swept value at the bottom
+    plot_sweep(problem, results)
+    plt.show()
+    return results
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -81,7 +97,7 @@ def main(argv: list[str] | None = None) -> int:
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("size").add_argument("design")
     commands.add_parser("compare").add_argument("study")
-    commands.add_parser("sweep")
+    commands.add_parser("sweep").add_argument("study")
 
     args = parser.parse_args(argv)
     match args.command:
@@ -90,7 +106,7 @@ def main(argv: list[str] | None = None) -> int:
         case "compare":
             compare(args.study)
         case "sweep":
-            sweep()
+            sweep(args.study)
     return 0
 
 
