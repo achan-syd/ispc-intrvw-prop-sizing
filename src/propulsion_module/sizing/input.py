@@ -9,45 +9,6 @@ from typing_extensions import Self
 PARAM: Final = "PARAM"
 
 
-def _param_names(node: object, name: str = "") -> list[str]:
-    """Find the names of the keys that hold the placeholder.
-
-    "pressure": "PARAM"           gives "pressure"
-    "pressure": ["PARAM", "bar"]  gives "pressure [bar]"
-    """
-    # The placeholder itself, the name is the key it sits under
-    if node == PARAM:
-        return [name]
-    # A [placeholder, unit] pair, add the unit to the name
-    if isinstance(node, list) and node and node[0] == PARAM:
-        return [f"{name} [{node[1]}]"]
-    # Any other list, look inside every item
-    if isinstance(node, list):
-        names = []
-        for item in node:
-            names += _param_names(item, name)
-        return names
-    # A dictionary, look inside every key
-    if isinstance(node, dict):
-        names = []
-        for key, value in node.items():
-            names += _param_names(value, key)
-        return names
-    # A number or a string, nothing to find
-    return []
-
-
-def _replace_param(node: object, value: float) -> object:
-    """Copy a parsed config with every placeholder replaced by the value."""
-    if node == PARAM:
-        return value
-    if isinstance(node, dict):
-        return {key: _replace_param(item, value) for key, item in node.items()}
-    if isinstance(node, list):
-        return [_replace_param(item, value) for item in node]
-    return node
-
-
 @dataclass(frozen=True)
 class Specification:
     """Top-level requirements the system is sized against.
@@ -141,3 +102,42 @@ class SweepDefinition:
         requirements = _replace_param(self.requirements, value)
         cases = _replace_param(self.cases, value)
         return Specification.from_config({"requirements": requirements}), cases
+
+
+def _param_names(node: object, name: str = "") -> list[str]:
+    """Find the names of the keys that hold the placeholder.
+
+    "pressure": "PARAM"           gives "pressure"
+    "pressure": ["PARAM", "bar"]  gives "pressure [bar]"
+    """
+    # The placeholder itself, the name is the key it sits under
+    if node == PARAM:
+        return [name]
+    # A [placeholder, unit] pair, add the unit to the name
+    if isinstance(node, list) and node and node[0] == PARAM:
+        return [f"{name} [{node[1]}]"]
+    # Any other list, look inside every item
+    if isinstance(node, list):
+        names = []
+        for item in node:
+            names += _param_names(item, name)
+        return names
+    # A dictionary, look inside every key
+    if isinstance(node, dict):
+        names = []
+        for key, value in node.items():
+            names += _param_names(value, key)
+        return names
+    # A number or a string, nothing to find
+    return []
+
+
+def _replace_param(node: object, value: float) -> object:
+    """Copy a parsed config with every placeholder replaced by the value."""
+    if node == PARAM:
+        return value
+    if isinstance(node, dict):
+        return {key: _replace_param(item, value) for key, item in node.items()}
+    if isinstance(node, list):
+        return [_replace_param(item, value) for item in node]
+    return node

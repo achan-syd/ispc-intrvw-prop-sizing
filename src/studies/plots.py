@@ -1,4 +1,4 @@
-"""Sweep Plot."""
+"""Study Plots."""
 
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
