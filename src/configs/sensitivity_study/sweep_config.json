@@ -1,8 +1,8 @@
 {
-    "PARAM": [0.4, 0.1, 5],
+    "PARAM": [150, 1, 300],
     "requirements": {
         "delta_v": 2000,
-        "twr": "PARAM",
+        "twr": 1.5,
         "dry_mass": 600,
         "maximum_mass": 1500
     },
@@ -19,7 +19,7 @@
                     "pressure": [25, "bar"]
                 },
                 "engine": {
-                    "isp": 310,
+                    "isp": "PARAM",
                     "inlet_pressure": [20, "bar"]
                 },
                 "pressurant": {
@@ -39,7 +39,7 @@
                     "pressure": [10, "bar"]
                 },
                 "engine": {
-                    "isp": 330,
+                    "isp": "PARAM",
                     "inlet_pressure": [40, "bar"]
                 },
                 "pump": {
