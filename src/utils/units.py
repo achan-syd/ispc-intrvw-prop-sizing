@@ -5,7 +5,7 @@ from __future__ import annotations
 from types import MappingProxyType
 from typing import Final
 
-PRESSURE_UNITS: Final = MappingProxyType(
+PRESSURE_UNITS: Final[MappingProxyType[str, float]] = MappingProxyType(
     {
         "Pa": 1.0,
         "kPa": 1e3,
@@ -15,7 +15,7 @@ PRESSURE_UNITS: Final = MappingProxyType(
     },
 )
 
-MASS_UNITS: Final = MappingProxyType(
+MASS_UNITS: Final[MappingProxyType[str, float]] = MappingProxyType(
     {
         "kg": 1.0,
         "g": 1e-3,
@@ -23,7 +23,7 @@ MASS_UNITS: Final = MappingProxyType(
     },
 )
 
-LENGTH_UNITS: Final = MappingProxyType(
+LENGTH_UNITS: Final[MappingProxyType[str, float]] = MappingProxyType(
     {
         "m": 1.0,
         "cm": 1e-2,
@@ -33,7 +33,7 @@ LENGTH_UNITS: Final = MappingProxyType(
     },
 )
 
-FORCE_UNITS: Final = MappingProxyType(
+FORCE_UNITS: Final[MappingProxyType[str, float]] = MappingProxyType(
     {
         "N": 1.0,
         "kN": 1e3,
@@ -41,21 +41,38 @@ FORCE_UNITS: Final = MappingProxyType(
     },
 )
 
-VELOCITY_UNITS: Final = MappingProxyType(
+VELOCITY_UNITS: Final[MappingProxyType[str, float]] = MappingProxyType(
     {
         "m/s": 1.0,
         "km/s": 1e3,
     },
 )
 
-DENSITY_UNITS: Final = MappingProxyType(
+DENSITY_UNITS: Final[MappingProxyType[str, float]] = MappingProxyType(
     {
         "kg/m3": 1.0,
         "g/cm3": 1e3,
     },
 )
 
-SI_FACTORS: Final = MappingProxyType(
+INVERSE_PRESSURE_UNITS: Final[MappingProxyType[str, float]] = MappingProxyType(
+    {
+        "1/Pa": 1.0,
+        "1/kPa": 1e-3,
+        "1/MPa": 1e-6,
+        "1/bar": 1e-5,
+        "1/psi": 1 / 6894.757293168,
+    },
+)
+
+MASS_PER_FORCE_UNITS: Final[MappingProxyType[str, float]] = MappingProxyType(
+    {
+        "kg/N": 1.0,
+        "kg/kN": 1e-3,
+    },
+)
+
+SI_FACTORS: Final[MappingProxyType[str, float]] = MappingProxyType(
     {
         **PRESSURE_UNITS,
         **MASS_UNITS,
@@ -63,6 +80,8 @@ SI_FACTORS: Final = MappingProxyType(
         **FORCE_UNITS,
         **VELOCITY_UNITS,
         **DENSITY_UNITS,
+        **INVERSE_PRESSURE_UNITS,
+        **MASS_PER_FORCE_UNITS,
     },
 )
 

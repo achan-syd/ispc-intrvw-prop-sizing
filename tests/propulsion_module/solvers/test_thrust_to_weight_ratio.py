@@ -1,41 +1,44 @@
+from typing import Final
+
 import pytest
 
 from src.propulsion_module.solvers.thrust_to_weight_ratio import (
     thrust_to_weight_ratio,
 )
+from tests.constants import RELATIVE_TOLERANCE
 
-TWR = 1.5
-THRUST = 3000.0
-MASS = 1000.0
-GRAVITY = 2.0
+TWR: Final[float] = 1.5
+THRUST: Final[float] = 3000.0
+MASS: Final[float] = 1000.0
+GRAVITY: Final[float] = 2.0
 
 
 @pytest.mark.unit
 def test_solve_twr() -> None:
     """Thrust-to-weight ratio matches a hand calculation."""
     result = thrust_to_weight_ratio(thrust=THRUST, mass=MASS, gravity=GRAVITY)
-    assert result == pytest.approx(TWR)
+    assert result == pytest.approx(TWR, rel=RELATIVE_TOLERANCE)
 
 
 @pytest.mark.unit
 def test_solve_thrust() -> None:
     """Thrust round-trips."""
     result = thrust_to_weight_ratio(twr=TWR, mass=MASS, gravity=GRAVITY)
-    assert result == pytest.approx(THRUST)
+    assert result == pytest.approx(THRUST, rel=RELATIVE_TOLERANCE)
 
 
 @pytest.mark.unit
 def test_solve_mass() -> None:
     """Mass round-trips."""
     result = thrust_to_weight_ratio(twr=TWR, thrust=THRUST, gravity=GRAVITY)
-    assert result == pytest.approx(MASS)
+    assert result == pytest.approx(MASS, rel=RELATIVE_TOLERANCE)
 
 
 @pytest.mark.unit
 def test_solve_gravity() -> None:
     """Gravity round-trips."""
     result = thrust_to_weight_ratio(twr=TWR, thrust=THRUST, mass=MASS)
-    assert result == pytest.approx(GRAVITY)
+    assert result == pytest.approx(GRAVITY, rel=RELATIVE_TOLERANCE)
 
 
 @pytest.mark.unit

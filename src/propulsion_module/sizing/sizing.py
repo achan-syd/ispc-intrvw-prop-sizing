@@ -68,9 +68,6 @@ def size_system(
 ) -> SizingResult:
     """Size a propulsion system against a specification.
 
-    A trial initial mass sizes the system, and it is right when the sized system
-    adds up to that same mass. brentq finds that initial mass.
-
     Args:
         specification: Requirements to size against.
         system: Unsized propulsion system.

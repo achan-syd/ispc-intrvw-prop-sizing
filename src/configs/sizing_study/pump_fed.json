@@ -13,7 +13,7 @@
             "inlet_pressure": [40, "bar"]
         },
         "pump": {
-            "mass_factor": 0.008
+            "mass_factor": [0.008, "kg/N"]
         }
     }
 }

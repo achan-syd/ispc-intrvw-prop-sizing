@@ -1,43 +1,54 @@
+from typing import Final
+
 import pytest
 
 from src.propulsion_module.solvers.rocket_equation import rocket_equation
+from tests.constants import RELATIVE_TOLERANCE
 
-DELTA_V = 2000.0
-ISP = 310.0
-FINAL_MASS = 600.0
-INITIAL_MASS = rocket_equation(DELTA_V, ISP, final_mass=FINAL_MASS)
+DELTA_V: Final[float] = 2000.0
+ISP: Final[float] = 310.0
+FINAL_MASS: Final[float] = 600.0
+INITIAL_MASS: Final[float] = 1158.4186  # 600 * exp(2000 / (310 * 9.80665))
 
 
 @pytest.mark.unit
 def test_solve_initial_mass() -> None:
-    """Initial mass matches a hand calculation."""
+    """Initial mass matches the hand calculation."""
     initial_mass = rocket_equation(DELTA_V, ISP, final_mass=FINAL_MASS)
-    assert initial_mass == pytest.approx(1158.42, abs=0.01)
+    # Hand calculation:
+    # m_0 = m_f * exp(dv / (Isp*g0)) = 600 * exp(0.6579) = 1158.42 kg
+    assert initial_mass == pytest.approx(INITIAL_MASS, rel=RELATIVE_TOLERANCE)
 
 
 @pytest.mark.unit
 def test_solve_final_mass() -> None:
-    """Final mass round-trips."""
+    """Final mass matches the hand calculation."""
     result = rocket_equation(DELTA_V, ISP, initial_mass=INITIAL_MASS)
-    assert result == pytest.approx(FINAL_MASS)
+    # Hand calculation:
+    # m_f = m_0 * exp(-dv / (Isp*g0)) = 1158.42 * exp(-0.6579) = 600 kg
+    assert result == pytest.approx(FINAL_MASS, rel=RELATIVE_TOLERANCE)
 
 
 @pytest.mark.unit
 def test_solve_delta_v() -> None:
-    """Delta-V round-trips."""
+    """Delta-V matches the hand calculation."""
     result = rocket_equation(isp=ISP, initial_mass=INITIAL_MASS, final_mass=FINAL_MASS)
-    assert result == pytest.approx(DELTA_V)
+    # Hand calculation:
+    # dv = Isp * g0 * ln(m_0/m_f) = 310 * 9.80665 * 0.6579 = 2000 m/s
+    assert result == pytest.approx(DELTA_V, rel=RELATIVE_TOLERANCE)
 
 
 @pytest.mark.unit
 def test_solve_isp() -> None:
-    """Isp round-trips."""
+    """Isp matches the hand calculation."""
     result = rocket_equation(
         delta_v=DELTA_V,
         initial_mass=INITIAL_MASS,
         final_mass=FINAL_MASS,
     )
-    assert result == pytest.approx(ISP)
+    # Hand calculation:
+    # Isp = dv / (g0 * ln(m_0/m_f)) = 2000 / (9.80665 * 0.6579) = 310 s
+    assert result == pytest.approx(ISP, rel=RELATIVE_TOLERANCE)
 
 
 @pytest.mark.unit
