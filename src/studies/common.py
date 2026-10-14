@@ -19,6 +19,18 @@ def size_entry(specification: Specification, config: dict) -> SizingResult:
     return size_system(specification, system)
 
 
+def report_specification(specification: Specification) -> str:
+    """Format the specification for the top of the command line output."""
+    return (
+        "Specification\n"
+        f"  delta-V           {specification.delta_v:9.1f} m/s\n"
+        f"  thrust-to-weight  {specification.twr:9.2f}\n"
+        f"  dry mass          {specification.dry_mass:9.1f} kg\n"
+        f"  maximum mass      {specification.maximum_mass:9.1f} kg\n"
+        "\n"
+    )
+
+
 def report(module: dict, result: SizingResult) -> str:
     """Format a result for the command line, the name and id are only cosmetic."""
     mass = result.mass
