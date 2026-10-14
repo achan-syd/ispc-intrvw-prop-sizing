@@ -26,9 +26,9 @@ Assume the following fixed top-level constraints:
 For each architecture, compute total required propellant mass, and system margin against requirement. Explore the sensitivity with respect to a parameter that you select (e.g. Isp, but since we are giving you this example, please use a different parameter),
 
 ## Solution
-- [How to use](docs/tutorial.md)
-- [Solution approach](docs/module-design.md)
-- [Report](docs/report.md)
+- [How to use](docs/02-user-manual.md)
+- [Solution approach](docs/01-solution-design.md)
+- [Report](docs/03-report.md)
 
 ## Setting up
 
