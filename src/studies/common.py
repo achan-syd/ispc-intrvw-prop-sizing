@@ -34,11 +34,19 @@ def report_specification(specification: Specification) -> str:
 def report(module: dict, result: SizingResult) -> str:
     """Format a result for the command line, the name and id are only cosmetic."""
     mass = result.mass
+    system = result.system
+    tanks = sum(tank.mass for tank in system.propellant_tanks)
+    feed_systems = sum(feed.mass for feed in system.feed_systems)
+    engines = sum(engine.mass for engine in system.engines)
     return (
         f"[{module['id']}] {module['name']}\n"
-        f"  propellant mass  {mass.propellant_mass:9.2f} kg\n"
-        f"  hardware mass    {mass.hardware_mass:9.2f} kg\n"
-        f"  total mass       {mass.total_mass:9.2f} kg\n"
-        f"  thrust           {result.thrust:9.1f} N\n"
-        f"  margin           {result.margin:9.1%}\n"
+        f"  propellant mass             {mass.propellant_mass:9.2f} kg\n"
+        f"  propulsion system mass      {system.mass:9.2f} kg\n"
+        f"    tank mass                 {tanks:9.2f} kg\n"
+        f"    feed system mass          {feed_systems:9.2f} kg\n"
+        f"    engine mass               {engines:9.2f} kg\n"
+        f"  dry mass                    {mass.hardware_mass:9.2f} kg\n"
+        f"  total mass                  {mass.total_mass:9.2f} kg\n"
+        f"  thrust                      {result.thrust:9.1f} N\n"
+        f"  margin                      {result.margin:9.1%}\n"
     )

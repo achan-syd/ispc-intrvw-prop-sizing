@@ -10,7 +10,11 @@ CONFIG = {
             "material": "Aluminium",
             "pressure": [10, "bar"],
         },
-        "engine": {"isp": 330, "inlet_pressure": [40, "bar"]},
+        "engine": {
+            "isp": 330,
+            "inlet_pressure": [40, "bar"],
+            "mass_factor": [0.2, "kg/bar"],
+        },
         "pump": {"mass_factor": [0.008, "kg/N"]},
     },
 }

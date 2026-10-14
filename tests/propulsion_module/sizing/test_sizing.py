@@ -21,6 +21,7 @@ MAXIMUM_MASS: Final[int] = 1500  # kg
 PRESSURE_FED_TANK_PRESSURE: Final[list[float | str]] = [25, "bar"]
 PRESSURE_FED_ISP: Final[int] = 310  # s
 PRESSURE_FED_INLET_PRESSURE: Final[list[float | str]] = [20, "bar"]
+ENGINE_MASS_FACTOR: Final[list[float | str]] = [0.2, "kg/bar"]
 PRESSURANT_MASS_FACTOR: Final[list[float | str]] = [0.002, "1/bar"]
 
 # Pump fed design
@@ -74,6 +75,7 @@ def test_size_pressure_fed_meets_the_specification() -> None:
                 "engine": {
                     "isp": PRESSURE_FED_ISP,
                     "inlet_pressure": PRESSURE_FED_INLET_PRESSURE,
+                    "mass_factor": ENGINE_MASS_FACTOR,
                 },
                 "pressurant": {
                     "mass_factor": PRESSURANT_MASS_FACTOR,
@@ -107,6 +109,7 @@ def test_size_pump_fed_meets_the_specification() -> None:
                 "engine": {
                     "isp": PUMP_FED_ISP,
                     "inlet_pressure": PUMP_FED_INLET_PRESSURE,
+                    "mass_factor": ENGINE_MASS_FACTOR,
                 },
                 "pump": {
                     "mass_factor": PUMP_MASS_FACTOR,
