@@ -1,21 +1,35 @@
-import json
-
 import pytest
 
-from src.constants.assets import SIZING_STUDY
 from src.propulsion_module.models.architectures.pump_fed import PumpFedSystem
+from tests.constants import RELATIVE_TOLERANCE
+
+CONFIG = {
+    "propulsion_module": {
+        "tank": {
+            "propellant": "Hydrazine",
+            "material": "Aluminium",
+            "pressure": [10, "bar"],
+        },
+        "engine": {"isp": 330, "inlet_pressure": [40, "bar"]},
+        "pump": {"mass_factor": 0.008},
+    },
+}
 
 
 @pytest.mark.unit
 def test_from_config() -> None:
-    """Default config builds the components in SI."""
-    system = PumpFedSystem.from_config(
-        json.loads((SIZING_STUDY / "pump_fed.json").read_text()),
-    )
+    """Config builds the components in SI."""
+    system = PumpFedSystem.from_config(CONFIG)
     tank = system.propellant_tanks[0]
     assert tank.propellant.name == "Hydrazine"
     assert tank.material.name == "Aluminium"
-    assert tank.max_pressure == pytest.approx(1e6)
+    assert tank.max_pressure == pytest.approx(1e6, rel=RELATIVE_TOLERANCE)
     assert system.engines[0].isp == 330
-    assert system.engines[0].inlet_pressure == pytest.approx(4e6)
-    assert system.feed_systems[0].mass_factor == pytest.approx(0.008)
+    assert system.engines[0].inlet_pressure == pytest.approx(
+        4e6,
+        rel=RELATIVE_TOLERANCE,
+    )
+    assert system.feed_systems[0].mass_factor == pytest.approx(
+        0.008,
+        rel=RELATIVE_TOLERANCE,
+    )

@@ -9,6 +9,7 @@ from src.propulsion_module.models.architectures.pump_fed import PumpFedSystem
 from src.propulsion_module.sizing.input import Specification
 from src.propulsion_module.sizing.output import SizingResult
 from src.propulsion_module.sizing.sizing import size_system
+from tests.constants import RELATIVE_TOLERANCE
 
 # Specification
 DELTA_V: Final[int] = 2000  # m/s
@@ -37,11 +38,18 @@ def assert_meets_specification(result: SizingResult, isp: float) -> None:
     # Delta-V from the rocket equation meets the requirement
     assert isp * EARTH_GRAVITY * math.log(total_mass / final_mass) == pytest.approx(
         DELTA_V,
+        rel=RELATIVE_TOLERANCE,
     )
     # Thrust over the weight on the moon meets the requirement
-    assert result.thrust / (total_mass * LUNAR_GRAVITY) == pytest.approx(TWR)
+    assert result.thrust / (total_mass * LUNAR_GRAVITY) == pytest.approx(
+        TWR,
+        rel=RELATIVE_TOLERANCE,
+    )
     # Hardware mass is the dry mass plus the sized propulsion hardware
-    assert result.mass.hardware_mass == pytest.approx(DRY_MASS + result.system.mass)
+    assert result.mass.hardware_mass == pytest.approx(
+        DRY_MASS + result.system.mass,
+        rel=RELATIVE_TOLERANCE,
+    )
     # Total mass is within the maximum
     assert total_mass <= MAXIMUM_MASS
 

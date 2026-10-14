@@ -1,12 +1,7 @@
 import pytest
 
 from src.utils.units import to_si, to_si_quantity
-
-
-@pytest.mark.unit
-def test_bar_to_pascal() -> None:
-    """Bar converts to Pa."""
-    assert to_si(20, "bar") == pytest.approx(2e6)
+from tests.constants import RELATIVE_TOLERANCE
 
 
 @pytest.mark.unit
@@ -18,7 +13,7 @@ def test_si_unit_is_unchanged() -> None:
 @pytest.mark.unit
 def test_psi_to_pascal() -> None:
     """Psi converts to Pa."""
-    assert to_si(1, "psi") == pytest.approx(6894.757, rel=1e-6)
+    assert to_si(1, "psi") == pytest.approx(6894.757, rel=RELATIVE_TOLERANCE)
 
 
 @pytest.mark.unit
@@ -31,7 +26,7 @@ def test_unknown_unit() -> None:
 @pytest.mark.unit
 def test_quantity_pair_to_si() -> None:
     """A [value, unit] pair converts to SI."""
-    assert to_si_quantity([20, "bar"]) == pytest.approx(2e6)
+    assert to_si_quantity([20, "bar"]) == pytest.approx(2e6, rel=RELATIVE_TOLERANCE)
 
 
 @pytest.mark.unit
