@@ -36,9 +36,10 @@ def report(module: dict, result: SizingResult) -> str:
     mass = result.mass
     return (
         f"[{module['id']}] {module['name']}\n"
-        f"  propellant mass  {mass.propellant_mass:9.2f} kg\n"
-        f"  hardware mass    {mass.hardware_mass:9.2f} kg\n"
-        f"  total mass       {mass.total_mass:9.2f} kg\n"
-        f"  thrust           {result.thrust:9.1f} N\n"
-        f"  margin           {result.margin:9.1%}\n"
+        f"  propellant mass         {mass.propellant_mass:9.2f} kg\n"
+        f"  propulsion system mass  {result.system.mass:9.2f} kg\n"
+        f"  dry mass                {mass.hardware_mass:9.2f} kg\n"
+        f"  total mass              {mass.total_mass:9.2f} kg\n"
+        f"  thrust                  {result.thrust:9.1f} N\n"
+        f"  margin                  {result.margin:9.1%}\n"
     )
