@@ -23,7 +23,7 @@
                     "inlet_pressure": [20, "bar"]
                 },
                 "pressurant": {
-                    "mass_factor": 2e-8
+                    "mass_factor": [0.002, "1/bar"]
                 }
             }
         },
@@ -43,7 +43,7 @@
                     "inlet_pressure": [40, "bar"]
                 },
                 "pump": {
-                    "mass_factor": 0.008
+                    "mass_factor": [0.008, "kg/N"]
                 }
             }
         }

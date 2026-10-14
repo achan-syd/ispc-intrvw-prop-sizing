@@ -11,7 +11,7 @@ CONFIG = {
             "pressure": [10, "bar"],
         },
         "engine": {"isp": 330, "inlet_pressure": [40, "bar"]},
-        "pump": {"mass_factor": 0.008},
+        "pump": {"mass_factor": [0.008, "kg/N"]},
     },
 }
 

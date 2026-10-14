@@ -55,6 +55,23 @@ DENSITY_UNITS: Final[MappingProxyType[str, float]] = MappingProxyType(
     },
 )
 
+INVERSE_PRESSURE_UNITS: Final[MappingProxyType[str, float]] = MappingProxyType(
+    {
+        "1/Pa": 1.0,
+        "1/kPa": 1e-3,
+        "1/MPa": 1e-6,
+        "1/bar": 1e-5,
+        "1/psi": 1 / 6894.757293168,
+    },
+)
+
+MASS_PER_FORCE_UNITS: Final[MappingProxyType[str, float]] = MappingProxyType(
+    {
+        "kg/N": 1.0,
+        "kg/kN": 1e-3,
+    },
+)
+
 SI_FACTORS: Final[MappingProxyType[str, float]] = MappingProxyType(
     {
         **PRESSURE_UNITS,
@@ -63,6 +80,8 @@ SI_FACTORS: Final[MappingProxyType[str, float]] = MappingProxyType(
         **FORCE_UNITS,
         **VELOCITY_UNITS,
         **DENSITY_UNITS,
+        **INVERSE_PRESSURE_UNITS,
+        **MASS_PER_FORCE_UNITS,
     },
 )
 

@@ -6,6 +6,8 @@ from dataclasses import dataclass, field, replace
 
 from typing_extensions import Self
 
+from src.utils.units import to_si_quantity
+
 
 @dataclass(frozen=True)
 class FeedSystem:
@@ -35,13 +37,13 @@ class PumpSystem(FeedSystem):
         """Build an unsized pump system from its config section.
 
         Args:
-            config: Pump section with mass_factor.
+            config: Pump section with mass_factor, a number or [value, unit].
 
         Returns:
             The pump system.
 
         """
-        return cls(mass_factor=config["mass_factor"])
+        return cls(mass_factor=to_si_quantity(config["mass_factor"]))
 
     def size(self, thrust: float) -> Self:
         """Size the pump mass, m = k F.
@@ -72,13 +74,13 @@ class PressurantSystem(FeedSystem):
         """Build an unsized pressurant system from its config section.
 
         Args:
-            config: Pressurant section with mass_factor.
+            config: Pressurant section with mass_factor, a number or [value, unit].
 
         Returns:
             The pressurant system.
 
         """
-        return cls(mass_factor=config["mass_factor"])
+        return cls(mass_factor=to_si_quantity(config["mass_factor"]))
 
     def size(self, pressure: float, propellant_mass: float) -> Self:
         """Size the pressurant mass, m = k p m_p.

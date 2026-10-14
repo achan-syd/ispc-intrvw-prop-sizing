@@ -11,7 +11,7 @@ CONFIG = {
             "pressure": [25, "bar"],
         },
         "engine": {"isp": 310, "inlet_pressure": [20, "bar"]},
-        "pressurant": {"mass_factor": 2e-8},
+        "pressurant": {"mass_factor": [0.002, "1/bar"]},
     },
 }
 
