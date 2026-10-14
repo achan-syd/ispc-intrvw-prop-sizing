@@ -19,7 +19,7 @@ The shared requirements sit in `src/configs/specification.json`:
 }
 ```
 
-# Sizing
+## Sizing
 Store one file per design in `src/configs/sizing_study/<design>.json`.
 ```json
 {
@@ -53,7 +53,7 @@ uv run main size pressure_fed
 ```
 `<design>` is the file name without `.json`.
 
-# Comparison
+## Comparison
 Store one file per study in `src/configs/comparative_study/<study>.json`. Each case is a design as above. Add as many cases as you like.
 ```json
 {
@@ -79,7 +79,7 @@ uv run main compare pressure_vs_pump
 ```
 `<study>` is the file name without `.json`.
 
-# Sensitivity Study
+## Sensitivity Study
 Store one file per study in `src/configs/sensitivity_study/<study>.json`. It holds the requirements, the cases, and the swept range.
 ```json
 {
