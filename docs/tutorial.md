@@ -23,6 +23,8 @@ Size a lunar descent propulsion system two ways, pressure-fed and pump-fed, and 
 - Isp: 330 s
 - Pump mass: 0.008 kg/N x thrust
 
+> **NOTE** Assumption: engine mass is 0.2 kg/bar x engine inlet pressure, it was not provided.
+
 **Outputs**
 - Required propellant mass for each case
 - Margin against the requirement for each case
@@ -38,17 +40,24 @@ Size a lunar descent propulsion system two ways, pressure-fed and pump-fed, and 
 | Dry mass [kg] | 600.0 |
 | Maximum mass [kg] | 1500.0 |
 
+Config File: [pressure_vs_pump.json](../src/configs/comparative_study/pressure_vs_pump.json)
+```
+python3 -m src.main compare pressure_vs_pump
+```
 
 **Outputs:**
 
 | | Case 1: Pressure-fed | Case 2: Pump-fed |
 |---|---:|---:|
-| Propellant mass [kg] | 619.16 | 542.97 |
-| Propulsion system mass [kg] | 65.26 | 34.88 |
-| Dry mass [kg] | 665.26 | 634.88 |
-| Total mass [kg] | 1284.42 | 1177.85 |
-| Thrust [N] | 3121.1 | 2862.2 |
-| Margin [%] | 14.4 | 21.5 |
+| Propellant mass [kg] | 623.28 | 550.21 |
+| Propulsion system mass [kg] | 69.70 | 43.35 |
+| &nbsp;&nbsp;Tank mass [kg] | 34.53 | 12.14 |
+| &nbsp;&nbsp;Feed system mass [kg] | 31.16 | 23.20 |
+| &nbsp;&nbsp;Engine mass [kg] | 4.00 | 8.00 |
+| Dry mass [kg] | 669.70 | 643.35 |
+| Total mass [kg] | 1292.98 | 1193.56 |
+| Thrust [N] | 3141.9 | 2900.3 |
+| Margin [%] | 13.8 | 20.4 |
 
 ## Sensitivity Analysis
 
@@ -59,6 +68,11 @@ Size a lunar descent propulsion system two ways, pressure-fed and pump-fed, and 
 | Thrust-to-weight [-] | 1.50 |
 | Dry mass [kg] | 600.0 |
 | Maximum mass [kg] | 1500.0 |
+
+Config File: [sweep_config.json](../src/configs/sensitivity_study/sweep_config.json)
+```
+python3 -m src.main sweep sweep_config
+```
 
 **Outputs:**
 

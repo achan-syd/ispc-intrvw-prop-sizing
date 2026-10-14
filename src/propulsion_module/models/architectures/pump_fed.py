@@ -55,5 +55,6 @@ class PumpFedSystem(PropulsionSystem):
         return replace(
             self,
             propellant_tanks=self._size_tanks(prop_mass),
+            engines=[engine.size() for engine in self.engines],
             feed_systems=[feed.size(thrust) for feed in self.feed_systems],
         )

@@ -25,9 +25,9 @@ $$F = \text{TWR} \cdot m_0 \cdot g_{moon}$$
 
 $$V = \frac{m_{prop}}{\rho_{prop} \, (1 - u)}, \qquad t = \frac{p \, r}{k \, \sigma_y / \text{FOS}}, \qquad m_{tank} = \rho_{wall} \, V_{shell}$$
 
-4. **Feed system**
+4. **Feed system and engine**
 
-$$m_{pump} = k_{pump} \, F, \qquad m_{press} = k_{press} \, p \, m_{prop}$$
+$$m_{pump} = k_{pump} \, F, \qquad m_{press} = k_{press} \, p \, m_{prop}, \qquad m_{engine} = k_{engine} \, p_{in}$$
 
 5. **Propulsion system and dry mass**
 
