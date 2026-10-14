@@ -35,6 +35,21 @@ For each architecture, compute total required propellant mass, and system margin
 ### Requirements:
 Ensure the following are installed:
 - `python 3.10`
-- `uv`
+- `uv` (Recommended)
 
 ### Quick Start
+
+Run a sizing study on config [pressure_fed.json](src/configs/sizing_study/pressure_fed.json)
+```bash
+uv run main size pressure_fed
+```
+
+Run a comparison study on config [pressure_vs_pump.json](src/configs/comparative_study/pressure_vs_pump.json)
+```bash
+uv run main compare pressure_vs_pump
+```
+
+Run a sensitivity study on config [sweep_config.json](src/configs/sensitivity_study/sweep_config.json)
+```bash
+uv run main sweep sweep_config
+```
