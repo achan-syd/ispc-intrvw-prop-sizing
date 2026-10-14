@@ -17,8 +17,6 @@ if TYPE_CHECKING:
 class PropellantTank:
     """Thin-walled pressure vessel holding propellant, sized from its volume.
 
-    Use SphericalTank or CylindricalTank, they size the tank on initialisation.
-
     Attributes:
         max_pressure: Maximum pressure [Pa].
         material: Wall material.
